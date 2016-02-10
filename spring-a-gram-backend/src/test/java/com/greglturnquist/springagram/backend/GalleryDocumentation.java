@@ -10,6 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.net.URI;
 import java.util.Collection;
 
+import com.greglturnquist.springagram.backend.domain.Gallery;
+import com.greglturnquist.springagram.backend.domain.GalleryRepository;
+import com.greglturnquist.springagram.backend.domain.Item;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

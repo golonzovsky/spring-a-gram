@@ -1,4 +1,4 @@
-package com.greglturnquist.springagram.backend;
+package com.greglturnquist.springagram.backend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

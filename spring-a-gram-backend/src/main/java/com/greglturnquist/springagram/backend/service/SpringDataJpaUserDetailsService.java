@@ -1,5 +1,7 @@
-package com.greglturnquist.springagram.backend;
+package com.greglturnquist.springagram.backend.service;
 
+import com.greglturnquist.springagram.backend.domain.User;
+import com.greglturnquist.springagram.backend.domain.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

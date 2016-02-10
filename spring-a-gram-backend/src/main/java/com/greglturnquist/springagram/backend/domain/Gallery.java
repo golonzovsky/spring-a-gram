@@ -1,4 +1,4 @@
-package com.greglturnquist.springagram.backend;
+package com.greglturnquist.springagram.backend.domain;
 
 import java.util.List;
 
@@ -22,10 +22,8 @@ public class Gallery {
 
     private String description;
 
-    // tag::items-def[]
     @OneToMany(mappedBy = "gallery")
     private List<Item> items;
-    // end::items-def[]
 
     protected Gallery() {
     }

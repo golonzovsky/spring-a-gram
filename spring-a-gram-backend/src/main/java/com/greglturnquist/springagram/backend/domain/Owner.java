@@ -1,14 +1,12 @@
-package com.greglturnquist.springagram.backend;
+package com.greglturnquist.springagram.backend.domain;
 
 import org.springframework.data.rest.core.config.Projection;
 
-// tag::owner[]
 @Projection(name = "owner", types = Item.class)
 public interface Owner {
 
-    public User getUser();
+    User getUser();
 
-    public String getImage();
+    String getImage();
 
 }
-//end::owner[]

@@ -27,12 +27,10 @@ public class User implements Serializable {
 
     private String name;
 
-    // tag::user[]
     // This field MUST be protected against any form of
     // serialization to avoid security leakage
     @JsonIgnore
     private String password;
-    //end::user[]
 
     private String[] roles;
 

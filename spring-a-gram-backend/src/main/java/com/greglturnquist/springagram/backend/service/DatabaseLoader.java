@@ -1,4 +1,4 @@
-package com.greglturnquist.springagram.backend;
+package com.greglturnquist.springagram.backend.service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.annotation.PostConstruct;
 import javax.xml.bind.DatatypeConverter;
 
+import com.greglturnquist.springagram.backend.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Profile;

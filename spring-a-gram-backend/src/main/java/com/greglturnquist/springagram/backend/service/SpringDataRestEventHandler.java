@@ -1,7 +1,11 @@
-package com.greglturnquist.springagram.backend;
+package com.greglturnquist.springagram.backend.service;
 
-import static com.greglturnquist.springagram.backend.WebSocketConfiguration.*;
+import static com.greglturnquist.springagram.backend.config.WebSocketConfiguration.*;
 
+import com.greglturnquist.springagram.backend.domain.Gallery;
+import com.greglturnquist.springagram.backend.domain.Item;
+import com.greglturnquist.springagram.backend.domain.User;
+import com.greglturnquist.springagram.backend.domain.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,11 +33,9 @@ import org.springframework.stereotype.Component;
  * {@link SecurityContextHolder} can be used to retrieve the username,
  * and hence do the user lookup.
  */
-// tag::event-handler-one[]
 @Component
 @RepositoryEventHandler(Item.class)
 public class SpringDataRestEventHandler {
-// end::event-handler-one[]
 
     private static final Logger log = LoggerFactory.getLogger(SpringDataRestEventHandler.class);
 
@@ -57,7 +59,6 @@ public class SpringDataRestEventHandler {
         this.websocket = websocket;
     }
 
-    // tag::event-handler-two[]
     @HandleBeforeCreate
     public void applyUserInformationUsingSecurityContext(Item item) {
 
@@ -70,9 +71,7 @@ public class SpringDataRestEventHandler {
         }
         item.setUser(user);
     }
-    // end::event-handler-two[]
 
-    // tag::event-handler-three[]
     @HandleAfterCreate
     public void notifyAllClientsAboutNewItem(Item item) {
 
@@ -86,7 +85,6 @@ public class SpringDataRestEventHandler {
         log.info("Just deleted item " + item);
         publish("backend.deleteItem", pathFor(item));
     }
-    // end::event-handler-three[]
 
     @HandleAfterLinkDelete
     public void notifyAllClientsWhenRemovedFromGallery(Item item, Object obj) {
@@ -111,13 +109,11 @@ public class SpringDataRestEventHandler {
         websocket.convertAndSend(MESSAGE_PREFIX + "/" + routingKey, message);
     }
 
-    // tag::event-handler-four[]
     private String pathFor(Item item) {
 
         return entityLinks.linkForSingleResource(item.getClass(),
                 item.getId()).toUri().getPath();
     }
-    // end::event-handler-four[]
 
     private String pathFor(Gallery gallery) {
 

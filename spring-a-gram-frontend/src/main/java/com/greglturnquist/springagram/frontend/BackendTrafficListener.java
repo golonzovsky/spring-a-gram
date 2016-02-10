@@ -34,7 +34,6 @@ import org.springframework.stereotype.Component;
  *
  * @author Greg Turnquist
  */
-// tag::code[]
 @Component
 public class BackendTrafficListener {
 
@@ -72,4 +71,3 @@ public class BackendTrafficListener {
     }
 
 }
-// end::code[]

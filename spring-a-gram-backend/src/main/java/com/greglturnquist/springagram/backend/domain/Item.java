@@ -1,4 +1,4 @@
-package com.greglturnquist.springagram.backend;
+package com.greglturnquist.springagram.backend.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,16 +25,12 @@ public class Item {
     @Lob
     private String image;
 
-    // tag::gallery-def[]
     @ManyToOne
     private Gallery gallery;
-    // end::gallery-def[]
 
-    // tag::user-def[]
     @JsonIgnore
     @OneToOne
     private User user;
-    // end::user-def[]
 
     /**
      * TODO: Lombok generated some error inside IntelliJ. Only solution was to hand write this setter.
