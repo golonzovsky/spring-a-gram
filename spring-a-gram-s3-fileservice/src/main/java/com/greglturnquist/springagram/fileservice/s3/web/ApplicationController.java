@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.greglturnquist.springagram.fileservice.s3;
+package com.greglturnquist.springagram.fileservice.s3.web;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import com.greglturnquist.springagram.fileservice.s3.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

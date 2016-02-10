@@ -1,5 +1,7 @@
-package com.greglturnquist.springagram.fileservice.s3;
+package com.greglturnquist.springagram.fileservice.s3.config;
 
+import com.greglturnquist.springagram.fileservice.s3.model.User;
+import com.greglturnquist.springagram.fileservice.s3.service.SpringDataJpaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

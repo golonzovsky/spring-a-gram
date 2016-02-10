@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.greglturnquist.springagram.fileservice.s3;
+package com.greglturnquist.springagram.fileservice.s3.service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -105,7 +105,7 @@ public class FileService {
         this.s3Client.deleteObject(this.bucket, filename);
     }
 
-    private String s3ify(String s) {
+    private static String s3ify(String s) {
         if (s.startsWith("s3://")) {
             return s;
         } else {
@@ -113,12 +113,7 @@ public class FileService {
         }
     }
 
-    /**
-     * Parse the {@link AmazonS3Exception} error result to capture the endpoint for
-     * redirection.
-     *
-     * @param e
-     */
+    /** Parse the {@link AmazonS3Exception} error result to capture the endpoint for redirection. */
     private void updateEndpoint(AmazonS3Exception e) {
 
         try {

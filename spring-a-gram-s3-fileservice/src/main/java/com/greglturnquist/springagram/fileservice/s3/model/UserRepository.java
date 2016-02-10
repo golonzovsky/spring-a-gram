@@ -1,4 +1,4 @@
-package com.greglturnquist.springagram.fileservice.s3;
+package com.greglturnquist.springagram.fileservice.s3.model;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

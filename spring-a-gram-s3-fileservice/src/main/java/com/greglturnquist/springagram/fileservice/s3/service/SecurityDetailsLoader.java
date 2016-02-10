@@ -1,9 +1,11 @@
-package com.greglturnquist.springagram.fileservice.s3;
+package com.greglturnquist.springagram.fileservice.s3.service;
 
 import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 
+import com.greglturnquist.springagram.fileservice.s3.model.User;
+import com.greglturnquist.springagram.fileservice.s3.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

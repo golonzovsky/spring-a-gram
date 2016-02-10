@@ -25,7 +25,7 @@ public class Gallery {
     @OneToMany(mappedBy = "gallery")
     private List<Item> items;
 
-    protected Gallery() {
+    public Gallery() {
     }
 
     public Gallery(String description) {

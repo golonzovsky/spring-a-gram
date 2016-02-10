@@ -1,4 +1,4 @@
-package com.greglturnquist.springagram.fileservice.s3;
+package com.greglturnquist.springagram.fileservice.s3.model;
 
 import java.io.Serializable;
 

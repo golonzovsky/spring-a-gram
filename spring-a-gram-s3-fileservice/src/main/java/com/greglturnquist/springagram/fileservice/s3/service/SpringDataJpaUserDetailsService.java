@@ -1,5 +1,7 @@
-package com.greglturnquist.springagram.fileservice.s3;
+package com.greglturnquist.springagram.fileservice.s3.service;
 
+import com.greglturnquist.springagram.fileservice.s3.model.User;
+import com.greglturnquist.springagram.fileservice.s3.model.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

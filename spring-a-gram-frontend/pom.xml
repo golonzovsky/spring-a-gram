@@ -10,7 +10,6 @@
         <version>0.1.0</version>
     </parent>
 
-    <groupId>com.greglturnquist.springagram</groupId>
     <artifactId>spring-a-gram-frontend</artifactId>
     <version>0.1.0</version>
 
@@ -30,18 +29,11 @@
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity3</artifactId>
+            <version>2.1.2.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>io.pivotal.spring.cloud</groupId>
-            <artifactId>spring-cloud-services-starter-service-registry</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.pivotal.spring.cloud</groupId>
-            <artifactId>spring-cloud-services-starter-circuit-breaker</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.pivotal.spring.cloud</groupId>
-            <artifactId>spring-cloud-services-starter-config-client</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
