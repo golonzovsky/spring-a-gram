@@ -33,65 +33,66 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @Controller
 public class ApplicationController {
 
-	private static final Logger log = LoggerFactory.getLogger(ApplicationController.class);
+    private static final Logger log = LoggerFactory.getLogger(ApplicationController.class);
 
-	private final RestTemplate rest = new RestTemplate();
+    private final RestTemplate rest = new RestTemplate();
 
-	@Autowired
-	ApplicationControllerHelper helper;
+    @Autowired
+    ApplicationControllerHelper helper;
 
-	@Value("${springagram.hashtag:#springagram}")
-	String hashtag;
+    @Value("${springagram.hashtag:#springagram}")
+    String hashtag;
 
-	@Value("${spring.data.rest.basePath}")
-	String basePath;
+    @Value("${spring.data.rest.basePath}")
+    String basePath;
 
-	/**
-	 * Serve up the home page
-	 * @return
-	 */
-	@RequestMapping(method=RequestMethod.GET, value="/")
-	public ModelAndView index() {
+    /**
+     * Serve up the home page
+     *
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/")
+    public ModelAndView index() {
 
-		ModelAndView modelAndView = new ModelAndView("index");
-		modelAndView.addObject("gallery", new Gallery());
-		modelAndView.addObject("newGallery",
-				linkTo(methodOn(ApplicationController.class).newGallery(null, null))
-						.withRel("New Gallery"));
-		return modelAndView;
-	}
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("gallery", new Gallery());
+        modelAndView.addObject("newGallery",
+                linkTo(methodOn(ApplicationController.class).newGallery(null, null))
+                        .withRel("New Gallery"));
+        return modelAndView;
+    }
 
-	@RequestMapping(method=RequestMethod.POST, value="/")
-	public ModelAndView newGallery(@ModelAttribute Gallery gallery, HttpEntity<String> httpEntity) {
+    @RequestMapping(method = RequestMethod.POST, value = "/")
+    public ModelAndView newGallery(@ModelAttribute Gallery gallery, HttpEntity<String> httpEntity) {
 
-		Link root = linkTo(methodOn(ApplicationController.class).index()).slash("/api").withRel("root");
-		Link galleries = new Traverson(URI.create(root.expand().getHref()), MediaTypes.HAL_JSON).//
-				follow("galleries").//
-				withHeaders(httpEntity.getHeaders()).//
-				asLink();
+        Link root = linkTo(methodOn(ApplicationController.class).index()).slash("/api").withRel("root");
+        Link galleries = new Traverson(URI.create(root.expand().getHref()), MediaTypes.HAL_JSON).//
+                follow("galleries").//
+                withHeaders(httpEntity.getHeaders()).//
+                asLink();
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.putAll(httpEntity.getHeaders());
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<Object> subRequest = new HttpEntity<>(gallery, headers);
-		rest.exchange(galleries.expand().getHref(), HttpMethod.POST, subRequest, Gallery.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.putAll(httpEntity.getHeaders());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Object> subRequest = new HttpEntity<>(gallery, headers);
+        rest.exchange(galleries.expand().getHref(), HttpMethod.POST, subRequest, Gallery.class);
 
-		return index();
-	}
+        return index();
+    }
 
-	@RequestMapping(method=RequestMethod.GET, value="/image")
-	public ModelAndView imageViaLink(@RequestParam("link") String link, HttpEntity<String> httpEntity) {
+    @RequestMapping(method = RequestMethod.GET, value = "/image")
+    public ModelAndView imageViaLink(@RequestParam("link") String link, HttpEntity<String> httpEntity) {
 
-		Resource<Item> itemResource = helper.getImageResourceViaLink(link, httpEntity);
+        Resource<Item> itemResource = helper.getImageResourceViaLink(link, httpEntity);
 
-		return new ModelAndView("oneImage")
-				.addObject("item", itemResource.getContent())
-				.addObject("hashtag", hashtag)
-				.addObject("links", Arrays.asList(
-						linkTo(methodOn(ApplicationController.class).index()).withRel("All Images"),
-						new Link(itemResource.getContent().getImage()).withRel("Raw Image"),
-						new Link(link).withRel("HAL record")
-				));
-	}
+        return new ModelAndView("oneImage")
+                .addObject("item", itemResource.getContent())
+                .addObject("hashtag", hashtag)
+                .addObject("links", Arrays.asList(
+                        linkTo(methodOn(ApplicationController.class).index()).withRel("All Images"),
+                        new Link(itemResource.getContent().getImage()).withRel("Raw Image"),
+                        new Link(link).withRel("HAL record")
+                ));
+    }
 
 }

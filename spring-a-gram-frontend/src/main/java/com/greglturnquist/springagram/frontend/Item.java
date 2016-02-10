@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class Item {
 
-	private String image;
-	private Gallery gallery;
-	private User user;
+    private String image;
+    private Gallery gallery;
+    private User user;
 
 }

@@ -48,83 +48,82 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @RestController
 public class ApplicationController {
 
-	private static final Logger log = LoggerFactory.getLogger(ApplicationController.class);
+    private static final Logger log = LoggerFactory.getLogger(ApplicationController.class);
 
-	private final FileService fileService;
+    private final FileService fileService;
 
-	@Autowired
-	public ApplicationController(FileService fileService) {
-		this.fileService = fileService;
-	}
+    @Autowired
+    public ApplicationController(FileService fileService) {
+        this.fileService = fileService;
+    }
 
-	@RequestMapping(method = RequestMethod.POST, value = "/files")
-	public ResponseEntity<?> newFile(@RequestParam("name") String filename, @RequestParam("file") MultipartFile file) {
+    @RequestMapping(method = RequestMethod.POST, value = "/files")
+    public ResponseEntity<?> newFile(@RequestParam("name") String filename, @RequestParam("file") MultipartFile file) {
 
-		if (!file.isEmpty()) {
-			try {
-				this.fileService.saveFile(file.getInputStream(), filename);
+        if (!file.isEmpty()) {
+            try {
+                this.fileService.saveFile(file.getInputStream(), filename);
 
-				Link link = linkTo(methodOn(ApplicationController.class).getFile(filename)).withRel(filename);
-				return ResponseEntity.created(new URI(link.getHref())).build();
+                Link link = linkTo(methodOn(ApplicationController.class).getFile(filename)).withRel(filename);
+                return ResponseEntity.created(new URI(link.getHref())).build();
 
-			} catch (IOException | URISyntaxException e) {
-				return ResponseEntity.badRequest().body("Couldn't process the request");
-			}
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("File is empty");
-		}
-	}
+            } catch (IOException | URISyntaxException e) {
+                return ResponseEntity.badRequest().body("Couldn't process the request");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("File is empty");
+        }
+    }
 
-	@RequestMapping(method = RequestMethod.GET, value = "/files")
-	public ResponseEntity<ResourceSupport> listAllFiles() {
+    @RequestMapping(method = RequestMethod.GET, value = "/files")
+    public ResponseEntity<ResourceSupport> listAllFiles() {
 
-		ResourceSupport files = new ResourceSupport();
+        ResourceSupport files = new ResourceSupport();
 
-		for (GridFsResource resource : this.fileService.findAll()) {
-			files.add(linkTo(methodOn(ApplicationController.class).getFile(resource.getFilename()))
-					.withRel(resource.getFilename()));
-		}
+        for (GridFsResource resource : this.fileService.findAll()) {
+            files.add(linkTo(methodOn(ApplicationController.class).getFile(resource.getFilename()))
+                    .withRel(resource.getFilename()));
+        }
 
-		return ResponseEntity.ok(files);
-	}
+        return ResponseEntity.ok(files);
+    }
 
-	@RequestMapping(method = RequestMethod.GET, value = "/files/{filename}")
-	public ResponseEntity<?> getFile(@PathVariable String filename) {
+    @RequestMapping(method = RequestMethod.GET, value = "/files/{filename}")
+    public ResponseEntity<?> getFile(@PathVariable String filename) {
 
-		GridFsResource file = this.fileService.findOne(filename);
+        GridFsResource file = this.fileService.findOne(filename);
 
-		if (file == null) {
-			return ResponseEntity.notFound().build();
-		}
+        if (file == null) {
+            return ResponseEntity.notFound().build();
+        }
 
-		try {
-			return ResponseEntity.ok().contentLength(file.contentLength())
-					.contentType(MediaType.parseMediaType(file.getContentType()))
-					.body(new InputStreamResource(file.getInputStream()));
-		}
-		catch (IOException e) {
-			return ResponseEntity.badRequest().body("Couldn't process the request");
-		}
-	}
+        try {
+            return ResponseEntity.ok().contentLength(file.contentLength())
+                    .contentType(MediaType.parseMediaType(file.getContentType()))
+                    .body(new InputStreamResource(file.getInputStream()));
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body("Couldn't process the request");
+        }
+    }
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/files/{filename}")
-	public ResponseEntity<?> deleteFile(@PathVariable String filename) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "/files/{filename}")
+    public ResponseEntity<?> deleteFile(@PathVariable String filename) {
 
-		this.fileService.deleteOne(filename);
+        this.fileService.deleteOne(filename);
 
-		return ResponseEntity.noContent().build();
-	}
+        return ResponseEntity.noContent().build();
+    }
 
-	/**
-	 * Suffixes like ".jpg" should be part of the path and not extracted for content negotiation.
-	 */
-	@Configuration
-	static class AllResources extends WebMvcConfigurerAdapter {
+    /**
+     * Suffixes like ".jpg" should be part of the path and not extracted for content negotiation.
+     */
+    @Configuration
+    static class AllResources extends WebMvcConfigurerAdapter {
 
-		@Override
-		public void configurePathMatch(PathMatchConfigurer matcher) {
-			matcher.setUseSuffixPatternMatch(false);
-		}
+        @Override
+        public void configurePathMatch(PathMatchConfigurer matcher) {
+            matcher.setUseSuffixPatternMatch(false);
+        }
 
-	}
+    }
 }

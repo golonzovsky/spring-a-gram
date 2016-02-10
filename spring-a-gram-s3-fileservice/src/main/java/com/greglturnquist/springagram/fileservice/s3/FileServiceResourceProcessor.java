@@ -29,11 +29,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class FileServiceResourceProcessor implements ResourceProcessor<RepositoryLinksResource> {
 
-	@Override
-	public RepositoryLinksResource process(RepositoryLinksResource resources) {
+    @Override
+    public RepositoryLinksResource process(RepositoryLinksResource resources) {
 
-		resources.add(linkTo(methodOn(ApplicationController.class).listFiles()).withRel("files"));
+        resources.add(linkTo(methodOn(ApplicationController.class).listFiles()).withRel("files"));
 
-		return resources;
-	}
+        return resources;
+    }
 }

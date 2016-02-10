@@ -11,17 +11,17 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 @EnableWebSocketMessageBroker
 public class WebSocketConfiguration extends AbstractSessionWebSocketMessageBrokerConfigurer<ExpiringSession> {
 
-	public static final String MESSAGE_PREFIX = "/topic";
+    public static final String MESSAGE_PREFIX = "/topic";
 
-	@Override
-	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		registry.enableSimpleBroker(MESSAGE_PREFIX);
-		registry.setApplicationDestinationPrefixes("/app");
-	}
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker(MESSAGE_PREFIX);
+        registry.setApplicationDestinationPrefixes("/app");
+    }
 
-	@Override
-	protected void configureStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
-		stompEndpointRegistry.addEndpoint("/springagram").withSockJS();
-	}
+    @Override
+    protected void configureStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
+        stompEndpointRegistry.addEndpoint("/springagram").withSockJS();
+    }
 
 }

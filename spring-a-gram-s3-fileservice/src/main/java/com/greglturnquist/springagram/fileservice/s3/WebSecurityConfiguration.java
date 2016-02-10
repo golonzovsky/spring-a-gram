@@ -18,40 +18,40 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	SpringDataJpaUserDetailsService userDetailsService;
+    @Autowired
+    SpringDataJpaUserDetailsService userDetailsService;
 
-	@Autowired
-	Environment env;
+    @Autowired
+    Environment env;
 
-	@Override
-	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(User.PASSWORD_ENCODER);
-	}
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(User.PASSWORD_ENCODER);
+    }
 
-	// Needed by Spring Security OAuth
-	@Override
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    // Needed by Spring Security OAuth
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
-				// NOTE: If you add other static resources to src/main/resources, they must be
-				// listed here to avoid security checks
-				.antMatchers("/docs/**").permitAll()
-				.anyRequest().authenticated()
-				.and()
-			.httpBasic()
-				.and()
-			.csrf().disable();
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                // NOTE: If you add other static resources to src/main/resources, they must be
+                // listed here to avoid security checks
+                .antMatchers("/docs/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic()
+                .and()
+                .csrf().disable();
 
-		if (env.acceptsProfiles("ssl")) {
-			http.requiresChannel().anyRequest().requiresSecure();
-		}
-	}
+        if (env.acceptsProfiles("ssl")) {
+            http.requiresChannel().anyRequest().requiresSecure();
+        }
+    }
 
 }

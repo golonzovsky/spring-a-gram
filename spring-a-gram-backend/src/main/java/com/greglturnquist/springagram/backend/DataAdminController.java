@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class DataAdminController {
 
-	@RequestMapping("/")
-	public String index() {
-		return "index";
-	}
+    @RequestMapping("/")
+    public String index() {
+        return "index";
+    }
 
 }

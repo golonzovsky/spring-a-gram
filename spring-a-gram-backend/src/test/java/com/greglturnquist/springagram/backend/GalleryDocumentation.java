@@ -40,63 +40,67 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringApplicationConfiguration(classes = GalleryDocumentation.TestConfiguration.class)
 public class GalleryDocumentation {
 
-	protected MockMvc mvc;
-	protected static MediaType DEFAULT_MEDIA_TYPE = org.springframework.hateoas.MediaTypes.HAL_JSON;
+    protected MockMvc mvc;
+    protected static MediaType DEFAULT_MEDIA_TYPE = org.springframework.hateoas.MediaTypes.HAL_JSON;
 
-	@Autowired WebApplicationContext context;
-	@Autowired GalleryRepository galleryRepository;
-	@Autowired RepositoryEntityLinks entityLinks;
+    @Autowired
+    WebApplicationContext context;
+    @Autowired
+    GalleryRepository galleryRepository;
+    @Autowired
+    RepositoryEntityLinks entityLinks;
 
-	@Before
-	public void setUp() {
+    @Before
+    public void setUp() {
 
-		mvc = MockMvcBuilders
-				.webAppContextSetup(context)
-				.apply(new RestDocumentationConfigurer())
-				.defaultRequest(get("/").accept(DEFAULT_MEDIA_TYPE))
-				.build();
-	}
+        mvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(new RestDocumentationConfigurer())
+                .defaultRequest(get("/").accept(DEFAULT_MEDIA_TYPE))
+                .build();
+    }
 
-	@Test
-	public void getACollectionOfGalleries() throws Exception {
+    @Test
+    public void getACollectionOfGalleries() throws Exception {
 
-		Gallery newGallery = new Gallery();
-		newGallery.setDescription("Collection of cats");
-		Gallery savedGallery = galleryRepository.save(newGallery);
+        Gallery newGallery = new Gallery();
+        newGallery.setDescription("Collection of cats");
+        Gallery savedGallery = galleryRepository.save(newGallery);
 
-		Link galleriesLink = entityLinks.linkToCollectionResource(Gallery.class);
+        Link galleriesLink = entityLinks.linkToCollectionResource(Gallery.class);
 
-		MvcResult result = mvc.perform(get(galleriesLink.expand().getHref()))
-				.andDo(print())
-				.andDo(document("getCollectionOfGalleries"))
-				.andExpect(status().isOk())
-				.andReturn();
+        MvcResult result = mvc.perform(get(galleriesLink.expand().getHref()))
+                .andDo(print())
+                .andDo(document("getCollectionOfGalleries"))
+                .andExpect(status().isOk())
+                .andReturn();
 
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.registerModules(new Jackson2HalModule());
-		PagedResources<Gallery> resourceGalleries = mapper.readValue(result.getResponse().getContentAsString(),
-				new TypeReference<PagedResources<Gallery>>() {});
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.registerModules(new Jackson2HalModule());
+        PagedResources<Gallery> resourceGalleries = mapper.readValue(result.getResponse().getContentAsString(),
+                new TypeReference<PagedResources<Gallery>>() {
+                });
 
-		assertThat(resourceGalleries.getLinks().size(), equalTo(1));
+        assertThat(resourceGalleries.getLinks().size(), equalTo(1));
 
-		assertThat(resourceGalleries.hasLink("self"), is(true));
-		assertThat(resourceGalleries.getLink("self").isTemplated(), is(false));
-		final String self = resourceGalleries.getLink("self").expand().getHref();
-		assertThat(self, containsString(new URI(self).getPath()));
+        assertThat(resourceGalleries.hasLink("self"), is(true));
+        assertThat(resourceGalleries.getLink("self").isTemplated(), is(false));
+        final String self = resourceGalleries.getLink("self").expand().getHref();
+        assertThat(self, containsString(new URI(self).getPath()));
 
-		Collection<Gallery> galleries = resourceGalleries.getContent();
-		assertThat(galleries.size(), equalTo(1));
-		Gallery gallery = galleries.toArray(new Gallery[]{})[0];
-		assertThat(gallery.getItems(), is(nullValue()));
-		assertThat(gallery.getDescription(), equalTo(savedGallery.getDescription()));
-	}
+        Collection<Gallery> galleries = resourceGalleries.getContent();
+        assertThat(galleries.size(), equalTo(1));
+        Gallery gallery = galleries.toArray(new Gallery[]{})[0];
+        assertThat(gallery.getItems(), is(nullValue()));
+        assertThat(gallery.getDescription(), equalTo(savedGallery.getDescription()));
+    }
 
-	@Configuration
-	@EnableJpaRepositories(basePackageClasses = Item.class)
-	@EnableAutoConfiguration
-	public static class TestConfiguration {
+    @Configuration
+    @EnableJpaRepositories(basePackageClasses = Item.class)
+    @EnableAutoConfiguration
+    public static class TestConfiguration {
 
-	}
+    }
 
 }

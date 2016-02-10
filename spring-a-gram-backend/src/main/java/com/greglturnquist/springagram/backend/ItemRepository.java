@@ -11,21 +11,21 @@ import org.springframework.security.access.prepost.PreAuthorize;
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 // end::top-level[]
 
-	List<Item> findByGalleryIsNull();
+    List<Item> findByGalleryIsNull();
 
-	// tag::save-item[]
-	@Override
-	@PreAuthorize("#item?.user == null or #item?.user?.name == authentication?.name")
-	Item save(@Param("item") Item item);
-	// end::save-item[]
+    // tag::save-item[]
+    @Override
+    @PreAuthorize("#item?.user == null or #item?.user?.name == authentication?.name")
+    Item save(@Param("item") Item item);
+    // end::save-item[]
 
-	@Override
-	@PreAuthorize("#item?.user?.name == authentication?.name or hasRole('ROLE_ADMIN')")
-	void delete(@Param("item") Item item);
+    @Override
+    @PreAuthorize("#item?.user?.name == authentication?.name or hasRole('ROLE_ADMIN')")
+    void delete(@Param("item") Item item);
 
-	// tag::delete[]
-	@Override
-	@PreAuthorize("@itemRepository.findOne(#id)?.user?.name == authentication?.name or hasRole('ROLE_ADMIN')")
-	void delete(@Param("id") Long id);
-	// end::delete[]
+    // tag::delete[]
+    @Override
+    @PreAuthorize("@itemRepository.findOne(#id)?.user?.name == authentication?.name or hasRole('ROLE_ADMIN')")
+    void delete(@Param("id") Long id);
+    // end::delete[]
 }

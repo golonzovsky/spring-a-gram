@@ -7,7 +7,6 @@ $teal-3: #00a79d;
 $teal-4: #92d0c0;
 $teal-5: #71ffda;
 
-
 // Grays - use these rather than the bootstrap grays
 // -------------------------
 
@@ -26,15 +25,15 @@ $gray-11: white;
 // Shadows
 // -------------------------
 
-$shadow-1 : rgba(0, 0, 0, 0.3);
-$shadow-2 : rgba(0, 0, 0, 0.14);
-$shadow-3 : rgba(0, 0, 0, 0.07);
-$shadow-4 : rgba(0, 0, 0, 0.035);
-$glow-1 : rgba(255,255,255,0.1);
-$glow-2 : rgba(255,255,255,0.2);
-$glow-3 : rgba(255,255,255,0.4);
-$glow-4 : rgba(255,255,255,0.6);
-$glow-5 : rgba(255,255,255,1);
+$shadow-1: rgba(0, 0, 0, 0.3);
+$shadow-2: rgba(0, 0, 0, 0.14);
+$shadow-3: rgba(0, 0, 0, 0.07);
+$shadow-4: rgba(0, 0, 0, 0.035);
+$glow-1: rgba(255, 255, 255, 0.1);
+$glow-2: rgba(255, 255, 255, 0.2);
+$glow-3: rgba(255, 255, 255, 0.4);
+$glow-4: rgba(255, 255, 255, 0.6);
+$glow-5: rgba(255, 255, 255, 1);
 
 // Blue
 // -------------------------
@@ -76,7 +75,6 @@ $yellow-3: #F9F3C3;
 $orange-1: null;
 $orange-2: null;
 
-
 // Background Colors
 // -------------------------
 
@@ -96,34 +94,34 @@ $neutral-11: $gray-11;
 // Grays (Bootstrap only, don't use directly) TODO: can we eliminate these entirely without modifying bootstrap base files?
 // -------------------------
 
-$gray-base:              #000 !default;
-$gray-darker:            lighten(#000, 13.5%) !default; // #222 bootstrap only
-$gray-dark:              lighten(#000, 20%) !default;   // #333 bootstrap only
-$gray:                   lighten(#000, 33.5%) !default; // #555 bootstrap only
-$gray-light:             lighten(#000, 60%) !default;   // #999 bootstrap only
-$gray-lighter:           lighten(#000, 93.5%) !default; // #eee bootstrap only
+$gray-base: #000 !default;
+$gray-darker: lighten(#000, 13.5%) !default; // #222 bootstrap only
+$gray-dark: lighten(#000, 20%) !default; // #333 bootstrap only
+$gray: lighten(#000, 33.5%) !default; // #555 bootstrap only
+$gray-light: lighten(#000, 60%) !default; // #999 bootstrap only
+$gray-lighter: lighten(#000, 93.5%) !default; // #eee bootstrap only
 
 // Dark colors
 // -------------------------
 
-$dark-1:                $navy-1;
-$dark-2:                $navy-2;
-$dark-3:                $navy-3;
+$dark-1: $navy-1;
+$dark-2: $navy-2;
+$dark-3: $navy-3;
 
 // Brand colors
 // -------------------------
 
-$brand-1:               $teal-1;
-$brand-2:               $teal-2;
-$brand-3:               $teal-3;
-$brand-4:               $teal-4;
-$brand-5:               $teal-5;
+$brand-1: $teal-1;
+$brand-2: $teal-2;
+$brand-3: $teal-3;
+$brand-4: $teal-4;
+$brand-5: $teal-5;
 
-$brand-primary:         #1b92cb !default;
-$brand-success:         #5cb85c !default;
-$brand-warning:         #f0ad4e !default;
-$brand-danger:          #CA7070 !default;
-$brand-info:            #5bc0de !default;
+$brand-primary: #1b92cb !default;
+$brand-success: #5cb85c !default;
+$brand-warning: #f0ad4e !default;
+$brand-danger: #CA7070 !default;
+$brand-info: #5bc0de !default;
 
 // Accents
 // -------------------------
@@ -155,8 +153,7 @@ $warn-3: $yellow-3;
 $success-1: $green-1;
 $success-2: $green-2;
 
-
 // login page colors
 // --------------------------
-$dark_grey:             #3b3c41;
-$almost_white:          #ededed;
+$dark_grey: #3b3c41;
+$almost_white: #ededed;

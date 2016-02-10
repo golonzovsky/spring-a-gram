@@ -16,21 +16,22 @@ import lombok.ToString;
 @ToString
 public class Gallery {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	private String description;
+    private String description;
 
-	// tag::items-def[]
-	@OneToMany(mappedBy = "gallery")
-	private List<Item> items;
-	// end::items-def[]
+    // tag::items-def[]
+    @OneToMany(mappedBy = "gallery")
+    private List<Item> items;
+    // end::items-def[]
 
-	protected Gallery() {}
+    protected Gallery() {
+    }
 
-	public Gallery(String description) {
-		this.description = description;
-	}
+    public Gallery(String description) {
+        this.description = description;
+    }
 
 }

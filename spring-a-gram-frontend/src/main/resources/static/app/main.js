@@ -1,10 +1,10 @@
-define(function(require) {
-	'use strict';
+define(function (require) {
+    'use strict';
 
-	document.addEventListener('DOMContentLoaded', new function() {
+    document.addEventListener('DOMContentLoaded', new function () {
 
-		require('jsx!app/images');
+        require('jsx!app/images');
 
-	}, false);
+    }, false);
 
 });

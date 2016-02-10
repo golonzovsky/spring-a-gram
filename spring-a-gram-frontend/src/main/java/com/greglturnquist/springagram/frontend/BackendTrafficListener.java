@@ -38,38 +38,38 @@ import org.springframework.stereotype.Component;
 @Component
 public class BackendTrafficListener {
 
-	private static final String BACKEND_CHANNEL = "spring-a-gram";
-	private static final Logger log = LoggerFactory.getLogger(BackendTrafficListener.class);
+    private static final String BACKEND_CHANNEL = "spring-a-gram";
+    private static final Logger log = LoggerFactory.getLogger(BackendTrafficListener.class);
 
-	private final SimpMessagingTemplate template;
+    private final SimpMessagingTemplate template;
 
-	@Autowired
-	public BackendTrafficListener(SimpMessagingTemplate template) {
-		this.template = template;
-	}
+    @Autowired
+    public BackendTrafficListener(SimpMessagingTemplate template) {
+        this.template = template;
+    }
 
-	@Bean
-	RedisMessageListenerContainer container(RedisConnectionFactory factory, MessageListener messageListener) {
+    @Bean
+    RedisMessageListenerContainer container(RedisConnectionFactory factory, MessageListener messageListener) {
 
-		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-		container.setConnectionFactory(factory);
-		container.addMessageListener(messageListener, new PatternTopic("/topic/*"));
-		return container;
-	}
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(factory);
+        container.addMessageListener(messageListener, new PatternTopic("/topic/*"));
+        return container;
+    }
 
-	@Bean
-	MessageListener messageListener() {
+    @Bean
+    MessageListener messageListener() {
 
-		return (message, pattern) ->
-				handle(new String(message.getBody(),Charset.defaultCharset()),
-						new String(message.getChannel(),Charset.defaultCharset()));
-	}
+        return (message, pattern) ->
+                handle(new String(message.getBody(), Charset.defaultCharset()),
+                        new String(message.getChannel(), Charset.defaultCharset()));
+    }
 
-	public void handle(String message, String destination) {
+    public void handle(String message, String destination) {
 
-		log.error("Forwarding <" + message + "> to " + destination);
-		template.convertAndSend(destination, message);
-	}
+        log.error("Forwarding <" + message + "> to " + destination);
+        template.convertAndSend(destination, message);
+    }
 
 }
 // end::code[]

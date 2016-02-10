@@ -29,16 +29,16 @@ import org.springframework.session.data.redis.config.ConfigureRedisAction;
 @Configuration
 public class RedisConfig {
 
-	@Bean
-	public StringRedisTemplate template(RedisConnectionFactory factory) {
-		return new StringRedisTemplate(factory);
-	}
+    @Bean
+    public StringRedisTemplate template(RedisConnectionFactory factory) {
+        return new StringRedisTemplate(factory);
+    }
 
-	@Bean
-	@Profile("cloud")
-	public static ConfigureRedisAction configureRedisAction() {
-		return ConfigureRedisAction.NO_OP;
-	}
+    @Bean
+    @Profile("cloud")
+    public static ConfigureRedisAction configureRedisAction() {
+        return ConfigureRedisAction.NO_OP;
+    }
 
 }
 // end::code[]

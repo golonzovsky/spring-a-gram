@@ -32,36 +32,36 @@ import org.springframework.stereotype.Service;
 @Service
 public class FileService {
 
-	private final GridFsTemplate gridFsTemplate;
+    private final GridFsTemplate gridFsTemplate;
 
-	@Autowired
-	public FileService(GridFsTemplate gridFsTemplate) {
+    @Autowired
+    public FileService(GridFsTemplate gridFsTemplate) {
 
-		this.gridFsTemplate = gridFsTemplate;
-	}
+        this.gridFsTemplate = gridFsTemplate;
+    }
 
-	public void saveFile(InputStream input, String filename) {
+    public void saveFile(InputStream input, String filename) {
 
-		this.gridFsTemplate.delete(query(whereFilename().is(filename)));
-		this.gridFsTemplate.store(input, filename, MediaType.IMAGE_JPEG_VALUE);
-	}
+        this.gridFsTemplate.delete(query(whereFilename().is(filename)));
+        this.gridFsTemplate.store(input, filename, MediaType.IMAGE_JPEG_VALUE);
+    }
 
-	public GridFsResource[] findAll() {
-		return this.gridFsTemplate.getResources("*");
-	}
+    public GridFsResource[] findAll() {
+        return this.gridFsTemplate.getResources("*");
+    }
 
-	public GridFsResource findOne(String filename) {
-		return this.gridFsTemplate.getResource(filename);
-	}
+    public GridFsResource findOne(String filename) {
+        return this.gridFsTemplate.getResource(filename);
+    }
 
-	public void deleteAll() {
+    public void deleteAll() {
 
-		for (GridFsResource resource : this.gridFsTemplate.getResources("*")) {
-			this.deleteOne(resource.getFilename());
-		}
-	}
+        for (GridFsResource resource : this.gridFsTemplate.getResources("*")) {
+            this.deleteOne(resource.getFilename());
+        }
+    }
 
-	public void deleteOne(String filename) {
-		this.gridFsTemplate.delete(query(whereFilename().is(filename)));
-	}
+    public void deleteOne(String filename) {
+        this.gridFsTemplate.delete(query(whereFilename().is(filename)));
+    }
 }

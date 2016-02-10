@@ -2,7 +2,6 @@
 // Pre-sets must be done BEFORE a module is imported. Some of these settings are at the top, while others
 // are right before the import statement.
 ////////////////////////////////////////////////////////////////////////
-
 @import "pivotal.palette";
 
 // Spring's palette (found on spring.io)
@@ -24,7 +23,7 @@ $brand-highlight2: $spring-antique-white;
 $brand-lowlight: $teal-3;
 
 //$inuit-base-font-size:  12px;
-$inuit-base-line-height:  18px;
+$inuit-base-line-height: 18px;
 $inuit-base-background-color: $brand-highlight2;
 
 ////////////////////////////////////////////////////////////////////////

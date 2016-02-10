@@ -32,27 +32,27 @@ import org.springframework.stereotype.Service;
 @Profile("!production")
 public class DatabaseLoader {
 
-	private final FileService fileService;
-	private final ApplicationContext ctx;
+    private final FileService fileService;
+    private final ApplicationContext ctx;
 
-	@Autowired
-	public DatabaseLoader(FileService fileService, ApplicationContext ctx) {
-		this.fileService = fileService;
-		this.ctx = ctx;
-	}
+    @Autowired
+    public DatabaseLoader(FileService fileService, ApplicationContext ctx) {
+        this.fileService = fileService;
+        this.ctx = ctx;
+    }
 
-	@PostConstruct
-	public void init() throws IOException {
+    @PostConstruct
+    public void init() throws IOException {
 
-		this.fileService.deleteAll();
+        this.fileService.deleteAll();
 
 //		loadImage("cat.jpg");
 //		loadImage("caterpillar.jpg");
-	}
+    }
 
-	private void loadImage(String filename) throws IOException {
-		Resource resource = ctx.getResource("classpath:" + filename);
-		this.fileService.saveFile(resource.getInputStream(), resource.getFile().length(), filename);
-	}
+    private void loadImage(String filename) throws IOException {
+        Resource resource = ctx.getResource("classpath:" + filename);
+        this.fileService.saveFile(resource.getInputStream(), resource.getFile().length(), filename);
+    }
 
 }

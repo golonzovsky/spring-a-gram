@@ -12,12 +12,12 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 @Configuration
 public class TaskSchedulingConfiguration implements SchedulingConfigurer {
 
-	@Autowired
-	private TaskScheduler taskScheduler;
+    @Autowired
+    private TaskScheduler taskScheduler;
 
-	@Override
-	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-		taskRegistrar.setScheduler(this.taskScheduler);
-	}
+    @Override
+    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+        taskRegistrar.setScheduler(this.taskScheduler);
+    }
 
 }

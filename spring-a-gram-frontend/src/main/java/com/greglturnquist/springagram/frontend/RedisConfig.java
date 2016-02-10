@@ -26,10 +26,10 @@ import org.springframework.session.data.redis.config.ConfigureRedisAction;
 @Configuration
 public class RedisConfig {
 
-	@Bean
-	@Profile("cloud")
-	public static ConfigureRedisAction configureRedisAction() {
-		return ConfigureRedisAction.NO_OP;
-	}
+    @Bean
+    @Profile("cloud")
+    public static ConfigureRedisAction configureRedisAction() {
+        return ConfigureRedisAction.NO_OP;
+    }
 
 }

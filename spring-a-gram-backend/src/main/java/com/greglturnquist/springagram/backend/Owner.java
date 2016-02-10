@@ -6,9 +6,9 @@ import org.springframework.data.rest.core.config.Projection;
 @Projection(name = "owner", types = Item.class)
 public interface Owner {
 
-	public User getUser();
+    public User getUser();
 
-	public String getImage();
+    public String getImage();
 
 }
 //end::owner[]

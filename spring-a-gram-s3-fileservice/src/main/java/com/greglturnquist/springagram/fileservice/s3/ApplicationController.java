@@ -47,79 +47,78 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @RestController
 public class ApplicationController {
 
-	private static final Logger log = LoggerFactory.getLogger(ApplicationController.class);
+    private static final Logger log = LoggerFactory.getLogger(ApplicationController.class);
 
-	private final FileService fileService;
+    private final FileService fileService;
 
-	@Autowired
-	public ApplicationController(FileService fileService) {
-		this.fileService = fileService;
-	}
+    @Autowired
+    public ApplicationController(FileService fileService) {
+        this.fileService = fileService;
+    }
 
-	@RequestMapping(method = RequestMethod.POST, value = "/files")
-	public ResponseEntity<?> newFile(@RequestParam("name") String filename, @RequestParam("file") MultipartFile file) {
+    @RequestMapping(method = RequestMethod.POST, value = "/files")
+    public ResponseEntity<?> newFile(@RequestParam("name") String filename, @RequestParam("file") MultipartFile file) {
 
-		try {
-			this.fileService.saveFile(file.getInputStream(), file.getSize(), filename);
+        try {
+            this.fileService.saveFile(file.getInputStream(), file.getSize(), filename);
 
-			Link link = linkTo(methodOn(ApplicationController.class).getFile(filename)).withRel(filename);
-			return ResponseEntity.created(new URI(link.getHref())).build();
+            Link link = linkTo(methodOn(ApplicationController.class).getFile(filename)).withRel(filename);
+            return ResponseEntity.created(new URI(link.getHref())).build();
 
-		} catch (IOException | URISyntaxException e) {
-			return ResponseEntity.badRequest().body("Couldn't process the request");
-		}
-	}
+        } catch (IOException | URISyntaxException e) {
+            return ResponseEntity.badRequest().body("Couldn't process the request");
+        }
+    }
 
-	@RequestMapping(method = RequestMethod.GET, value = "/files")
-	public ResponseEntity<?> listFiles() {
+    @RequestMapping(method = RequestMethod.GET, value = "/files")
+    public ResponseEntity<?> listFiles() {
 
-		try {
-			Resource[] files = this.fileService.findAll();
+        try {
+            Resource[] files = this.fileService.findAll();
 
-			ResourceSupport resources = new ResourceSupport();
+            ResourceSupport resources = new ResourceSupport();
 
-			for (Resource file : files) {
-				resources.add(linkTo(methodOn(ApplicationController.class).getFile(file.getFilename()))
-						.withRel(file.getFilename()));
-			}
+            for (Resource file : files) {
+                resources.add(linkTo(methodOn(ApplicationController.class).getFile(file.getFilename()))
+                        .withRel(file.getFilename()));
+            }
 
-			return ResponseEntity.ok(resources);
-		} catch (IOException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
+            return ResponseEntity.ok(resources);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
-	@RequestMapping(method = RequestMethod.GET, value = "/files/{filename}")
-	public ResponseEntity<?> getFile(@PathVariable String filename) throws IOException {
+    @RequestMapping(method = RequestMethod.GET, value = "/files/{filename}")
+    public ResponseEntity<?> getFile(@PathVariable String filename) throws IOException {
 
-		Resource file = this.fileService.findOne(filename);
+        Resource file = this.fileService.findOne(filename);
 
-		try {
-			return ResponseEntity.ok().contentLength(file.contentLength())
-					.contentType(MediaType.IMAGE_JPEG)
-					.body(new InputStreamResource(file.getInputStream()));
-		}
-		catch (IOException e) {
-			return ResponseEntity.badRequest().body("Couldn't process the request");
-		}
-	}
+        try {
+            return ResponseEntity.ok().contentLength(file.contentLength())
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(new InputStreamResource(file.getInputStream()));
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body("Couldn't process the request");
+        }
+    }
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/files/{filename}")
-	public ResponseEntity<?> deleteFile(@PathVariable String filename) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "/files/{filename}")
+    public ResponseEntity<?> deleteFile(@PathVariable String filename) {
 
-		this.fileService.deleteOne(filename);
+        this.fileService.deleteOne(filename);
 
-		return ResponseEntity.noContent().build();
-	}
+        return ResponseEntity.noContent().build();
+    }
 
-	@Configuration
-	static class AllResources extends WebMvcConfigurerAdapter {
+    @Configuration
+    static class AllResources extends WebMvcConfigurerAdapter {
 
-		@Override
-		public void configurePathMatch(PathMatchConfigurer matcher) {
-			matcher.setUseSuffixPatternMatch(false);
-		}
+        @Override
+        public void configurePathMatch(PathMatchConfigurer matcher) {
+            matcher.setUseSuffixPatternMatch(false);
+        }
 
-	}
+    }
 
 }

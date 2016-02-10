@@ -7,8 +7,8 @@ import org.springframework.data.repository.Repository;
  */
 public interface UserRepository extends Repository<User, Long> {
 
-	User save(User user);
+    User save(User user);
 
-	User findByName(String name);
+    User findByName(String name);
 
 }

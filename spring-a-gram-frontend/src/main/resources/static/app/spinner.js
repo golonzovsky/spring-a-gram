@@ -1,14 +1,14 @@
 define(function (require) {
-	'use strict';
+    'use strict';
 
-	return {
-		showSpinner: function () {
-			document.getElementById('spinner').style.cssText = '';
-		},
+    return {
+        showSpinner: function () {
+            document.getElementById('spinner').style.cssText = '';
+        },
 
-		hideSpinner: function () {
-			document.getElementById('spinner').style.cssText = 'display: none;';
-		}
-	}
+        hideSpinner: function () {
+            document.getElementById('spinner').style.cssText = 'display: none;';
+        }
+    }
 
 });

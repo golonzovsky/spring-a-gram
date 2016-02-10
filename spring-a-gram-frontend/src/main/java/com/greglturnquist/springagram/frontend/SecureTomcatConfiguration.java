@@ -19,27 +19,27 @@ import org.springframework.util.ResourceUtils;
 @Profile("ssl")
 public class SecureTomcatConfiguration {
 
-	@Bean
-	public EmbeddedServletContainerFactory servletContainer() throws FileNotFoundException {
-		TomcatEmbeddedServletContainerFactory f = new TomcatEmbeddedServletContainerFactory();
-		f.addAdditionalTomcatConnectors(createSslConnector());
-		return f;
-	}
+    @Bean
+    public EmbeddedServletContainerFactory servletContainer() throws FileNotFoundException {
+        TomcatEmbeddedServletContainerFactory f = new TomcatEmbeddedServletContainerFactory();
+        f.addAdditionalTomcatConnectors(createSslConnector());
+        return f;
+    }
 
-	private Connector createSslConnector() throws FileNotFoundException {
-		Connector connector = new Connector(Http11NioProtocol.class.getName());
-		Http11NioProtocol protocol =
-				(Http11NioProtocol)connector.getProtocolHandler();
-		connector.setPort(8443);
-		connector.setSecure(true);
-		connector.setScheme("https");
-		protocol.setSSLEnabled(true);
-		protocol.setKeyAlias("springagram");
-		protocol.setKeystorePass("password");
-		protocol.setKeystoreFile(ResourceUtils
-				.getFile("src/main/resources/keystore.jks").getAbsolutePath());
-		protocol.setSslProtocol("TLS");
-		return connector;
-	}
+    private Connector createSslConnector() throws FileNotFoundException {
+        Connector connector = new Connector(Http11NioProtocol.class.getName());
+        Http11NioProtocol protocol =
+                (Http11NioProtocol) connector.getProtocolHandler();
+        connector.setPort(8443);
+        connector.setSecure(true);
+        connector.setScheme("https");
+        protocol.setSSLEnabled(true);
+        protocol.setKeyAlias("springagram");
+        protocol.setKeystorePass("password");
+        protocol.setKeystoreFile(ResourceUtils
+                .getFile("src/main/resources/keystore.jks").getAbsolutePath());
+        protocol.setSslProtocol("TLS");
+        return connector;
+    }
 
 }

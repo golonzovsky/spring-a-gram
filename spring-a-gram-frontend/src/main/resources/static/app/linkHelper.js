@@ -1,16 +1,16 @@
-(function(document) {
-	define(function(require) {
-		'use strict';
+(function (document) {
+    define(function (require) {
+        'use strict';
 
-		return {
-			htmlUrl: htmlUrl
-		};
+        return {
+            htmlUrl: htmlUrl
+        };
 
-		function htmlUrl(uri) {
-			var encodedUri = encodeURIComponent(uri.split('{')[0]);
-			var link = window.location.origin + '/image?link=' + encodedUri;
-			return link;
-		}
+        function htmlUrl(uri) {
+            var encodedUri = encodeURIComponent(uri.split('{')[0]);
+            var link = window.location.origin + '/image?link=' + encodedUri;
+            return link;
+        }
 
-	});
+    });
 }(document));

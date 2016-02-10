@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Gallery {
 
-	private String description;
-	private List<Item> items;
+    private String description;
+    private List<Item> items;
 
 }

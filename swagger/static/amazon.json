@@ -22,7 +22,7 @@
         "description": "http://amazon.com//gp/product/B00DBYBNEE/ref=nav_joinprmlogo",
         "responses": {
           "200": {
-            "description" : "Success"
+            "description": "Success"
           }
         }
       }

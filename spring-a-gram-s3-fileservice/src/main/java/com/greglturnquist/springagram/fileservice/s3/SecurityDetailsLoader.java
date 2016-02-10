@@ -11,31 +11,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityDetailsLoader {
 
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	@Autowired
-	public SecurityDetailsLoader(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+    @Autowired
+    public SecurityDetailsLoader(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-	@PostConstruct
-	public void init() throws IOException {
+    @PostConstruct
+    public void init() throws IOException {
 
-		userRepository.deleteAll();
+        userRepository.deleteAll();
 
-		User greg = new User();
-		greg.setName("greg");
-		greg.setPassword("turnquist");
-		greg.setRoles(new String[]{"ROLE_USER"});
-		userRepository.save(greg);
+        User greg = new User();
+        greg.setName("greg");
+        greg.setPassword("turnquist");
+        greg.setRoles(new String[]{"ROLE_USER"});
+        userRepository.save(greg);
 
-		User roy = new User();
-		roy.setName("roy");
-		roy.setPassword("clarkson");
-		roy.setRoles(new String[]{"ROLE_USER"});
-		userRepository.save(roy);
+        User roy = new User();
+        roy.setName("roy");
+        roy.setPassword("clarkson");
+        roy.setRoles(new String[]{"ROLE_USER"});
+        userRepository.save(roy);
 
-		SecurityContextHolder.clearContext();
-	}
+        SecurityContextHolder.clearContext();
+    }
 
 }

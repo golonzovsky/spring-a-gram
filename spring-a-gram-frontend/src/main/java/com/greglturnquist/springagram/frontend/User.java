@@ -17,20 +17,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class User {
 
-	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+    public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
-	@Id @GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	private String name;
+    private String name;
 
-	@JsonIgnore
-	private String password;
+    @JsonIgnore
+    private String password;
 
-	private String[] roles;
+    private String[] roles;
 
-	public void setPassword(String password) {
-		this.password = PASSWORD_ENCODER.encode(password);
-	}
+    public void setPassword(String password) {
+        this.password = PASSWORD_ENCODER.encode(password);
+    }
 
 }

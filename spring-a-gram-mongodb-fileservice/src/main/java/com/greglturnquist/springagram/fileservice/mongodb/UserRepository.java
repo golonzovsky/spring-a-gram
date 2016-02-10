@@ -6,5 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(exported = false)
 public interface UserRepository extends CrudRepository<User, String> {
 
-	User findByName(String name);
+    User findByName(String name);
 }
