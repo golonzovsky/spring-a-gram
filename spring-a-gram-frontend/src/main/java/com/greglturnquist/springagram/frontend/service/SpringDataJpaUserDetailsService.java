@@ -1,5 +1,7 @@
-package com.greglturnquist.springagram.frontend;
+package com.greglturnquist.springagram.frontend.service;
 
+import com.greglturnquist.springagram.frontend.model.User;
+import com.greglturnquist.springagram.frontend.model.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,5 +1,7 @@
-package com.greglturnquist.springagram.frontend;
+package com.greglturnquist.springagram.frontend.config;
 
+import com.greglturnquist.springagram.frontend.service.SpringDataJpaUserDetailsService;
+import com.greglturnquist.springagram.frontend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

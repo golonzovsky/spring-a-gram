@@ -1,4 +1,4 @@
-package com.greglturnquist.springagram.frontend;
+package com.greglturnquist.springagram.frontend.config;
 
 import java.io.FileNotFoundException;
 

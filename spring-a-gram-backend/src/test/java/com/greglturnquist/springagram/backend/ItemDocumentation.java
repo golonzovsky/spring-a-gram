@@ -3,10 +3,10 @@ package com.greglturnquist.springagram.backend;
 import static java.util.stream.Collectors.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static org.springframework.restdocs.RestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import com.greglturnquist.springagram.backend.domain.ItemRepository;
 import com.greglturnquist.springagram.backend.domain.User;
 import com.greglturnquist.springagram.backend.domain.UserRepository;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -38,7 +39,8 @@ import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.config.RestDocumentationConfigurer;
+import org.springframework.restdocs.RestDocumentation;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -73,12 +75,15 @@ public class ItemDocumentation {
     @Value("${spring.data.rest.basePath}")
     String basePath;
 
+    @Rule
+    public RestDocumentation restDocumentation = new RestDocumentation("target/generated-snippets");
+
     @Before
     public void setUp() {
 
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
-                .apply(new RestDocumentationConfigurer())
+                .apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation))
                 .defaultRequest(get("/").accept(DEFAULT_MEDIA_TYPE))
                 .build();
         itemRepository.deleteAll();

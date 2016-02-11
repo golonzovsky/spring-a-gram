@@ -1,5 +1,7 @@
-package com.greglturnquist.springagram.frontend;
+package com.greglturnquist.springagram.frontend.web;
 
+import com.greglturnquist.springagram.frontend.model.Item;
+import com.greglturnquist.springagram.frontend.model.User;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import org.springframework.beans.factory.annotation.Value;

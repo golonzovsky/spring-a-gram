@@ -1,8 +1,10 @@
-package com.greglturnquist.springagram.frontend;
+package com.greglturnquist.springagram.frontend.web;
 
 import java.net.URI;
 import java.util.Arrays;
 
+import com.greglturnquist.springagram.frontend.model.Gallery;
+import com.greglturnquist.springagram.frontend.model.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

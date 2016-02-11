@@ -1,4 +1,4 @@
-package com.greglturnquist.springagram.frontend;
+package com.greglturnquist.springagram.frontend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

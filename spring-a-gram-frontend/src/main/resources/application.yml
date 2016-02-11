@@ -31,7 +31,7 @@ zuul:
       stripPrefix: false
     files:
       path: /files/**
-      serviceId: spring-a-gram-mongodb-fileservice
+      serviceId: spring-a-gram-s3-fileservice
       stripPrefix: false
 
 logging:
@@ -42,7 +42,7 @@ logging:
 
 ---
 spring:
-  profiles: s3
+  profiles: mongo
 
 zuul:
   routes:
@@ -52,7 +52,7 @@ zuul:
       stripPrefix: false
     files:
       path: /files/**
-      serviceId: spring-a-gram-s3-fileservice
+      serviceId: spring-a-gram-mongodb-fileservice
       stripPrefix: false
 
 ---

@@ -1,4 +1,4 @@
-package com.greglturnquist.springagram.frontend;
+package com.greglturnquist.springagram.frontend.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -2,10 +2,10 @@ package com.greglturnquist.springagram.backend;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static org.springframework.restdocs.RestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 
 import java.net.URI;
 import java.util.Collection;
@@ -14,6 +14,7 @@ import com.greglturnquist.springagram.backend.domain.Gallery;
 import com.greglturnquist.springagram.backend.domain.GalleryRepository;
 import com.greglturnquist.springagram.backend.domain.Item;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,8 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.config.RestDocumentationConfigurer;
+import org.springframework.restdocs.RestDocumentation;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -53,12 +55,15 @@ public class GalleryDocumentation {
     @Autowired
     RepositoryEntityLinks entityLinks;
 
+    @Rule
+    public RestDocumentation restDocumentation = new RestDocumentation("target/generated-snippets");
+
     @Before
     public void setUp() {
 
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
-                .apply(new RestDocumentationConfigurer())
+                .apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation))
                 .defaultRequest(get("/").accept(DEFAULT_MEDIA_TYPE))
                 .build();
     }

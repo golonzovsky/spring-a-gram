@@ -1,9 +1,11 @@
-package com.greglturnquist.springagram.frontend;
+package com.greglturnquist.springagram.frontend.service;
 
 import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 
+import com.greglturnquist.springagram.frontend.model.User;
+import com.greglturnquist.springagram.frontend.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
