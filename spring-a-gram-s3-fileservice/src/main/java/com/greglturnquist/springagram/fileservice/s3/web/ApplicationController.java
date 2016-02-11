@@ -67,6 +67,7 @@ public class ApplicationController {
             return ResponseEntity.created(new URI(link.getHref())).build();
 
         } catch (IOException | URISyntaxException e) {
+            log.error("save request processing failure: {}", e.getMessage());
             return ResponseEntity.badRequest().body("Couldn't process the request");
         }
     }
@@ -86,6 +87,7 @@ public class ApplicationController {
 
             return ResponseEntity.ok(resources);
         } catch (IOException e) {
+            log.error("list request processing failure: {}", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -100,6 +102,7 @@ public class ApplicationController {
                     .contentType(MediaType.IMAGE_JPEG)
                     .body(new InputStreamResource(file.getInputStream()));
         } catch (IOException e) {
+            log.error("get request processing failure: {}", e.getMessage());
             return ResponseEntity.badRequest().body("Couldn't process the request");
         }
     }
