@@ -68,10 +68,10 @@ public class ApplicationController {
     public ModelAndView newGallery(@ModelAttribute Gallery gallery, HttpEntity<String> httpEntity) {
 
         Link root = linkTo(methodOn(ApplicationController.class).index()).slash("/api").withRel("root");
-        Link galleries = new Traverson(URI.create(root.expand().getHref()), MediaTypes.HAL_JSON).//
-                follow("galleries").//
-                withHeaders(httpEntity.getHeaders()).//
-                asLink();
+        Link galleries = new Traverson(URI.create(root.expand().getHref()), MediaTypes.HAL_JSON)
+                .follow("galleries")
+                .withHeaders(httpEntity.getHeaders())
+                .asLink();
 
         HttpHeaders headers = new HttpHeaders();
         headers.putAll(httpEntity.getHeaders());

@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'/>
     <title>Spring-a-Gram :: Upload your fav pics</title>
@@ -15,7 +16,7 @@
 
 <section class="wrapper box box--tiny">
 
-    Hello, <span th:text="${#authentication.name}">user</span>.
+    Hello, <span th:text="${#httpServletRequest.remoteUser}">user</span>.
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Log Out"/>
     </form>
