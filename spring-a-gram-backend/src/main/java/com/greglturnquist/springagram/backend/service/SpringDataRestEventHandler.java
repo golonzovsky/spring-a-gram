@@ -116,7 +116,6 @@ public class SpringDataRestEventHandler {
     }
 
     private String pathFor(Gallery gallery) {
-
         return entityLinks.linkForSingleResource(gallery.getClass(),
                 gallery.getId()).toUri().getPath();
     }
