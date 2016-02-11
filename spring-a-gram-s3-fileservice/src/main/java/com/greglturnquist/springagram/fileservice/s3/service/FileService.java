@@ -69,6 +69,7 @@ public class FileService {
             metadata.setContentLength(length);
             this.s3Client.putObject(this.bucket, filename, input, metadata);
         } catch (AmazonS3Exception e) {
+            log.error(e.getMessage());
             if (e.getStatusCode() == 301) {
                 updateEndpoint(e);
                 saveFile(input, length, filename);
@@ -82,6 +83,7 @@ public class FileService {
         try {
             results = this.resourcePatternResolver.getResources(s3ify(this.bucket) + "/" + "*");
         } catch (AmazonS3Exception e) {
+            log.error(e.getMessage());
             if (e.getStatusCode() == 301) {
                 updateEndpoint(e);
                 results = this.findAll();

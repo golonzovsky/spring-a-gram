@@ -24,6 +24,11 @@ logging:
 
 bucket: golonzovsky-spring-a-gram
 
+cloud:
+  aws:
+    region.static: eu-central-1
+
+
 ---
 spring:
   profiles: cloud

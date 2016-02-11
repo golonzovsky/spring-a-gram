@@ -20,6 +20,9 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.greglturnquist.springagram.fileservice.s3.service.FileService;
 import org.slf4j.Logger;
@@ -76,15 +79,14 @@ public class ApplicationController {
     public ResponseEntity<?> listFiles() {
 
         try {
-            Resource[] files = this.fileService.findAll();
+
+            List<Link> links = Arrays.stream(this.fileService.findAll())
+                    .map(Resource::getFilename)
+                    .map(filename -> linkTo(methodOn(ApplicationController.class).getFile(filename)).withRel(filename))
+                    .collect(Collectors.toList());
 
             ResourceSupport resources = new ResourceSupport();
-
-            for (Resource file : files) {
-                resources.add(linkTo(methodOn(ApplicationController.class).getFile(file.getFilename()))
-                        .withRel(file.getFilename()));
-            }
-
+            resources.add(links);
             return ResponseEntity.ok(resources);
         } catch (IOException e) {
             log.error("list request processing failure: {}", e.getMessage());
@@ -93,7 +95,7 @@ public class ApplicationController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/files/{filename}")
-    public ResponseEntity<?> getFile(@PathVariable String filename) throws IOException {
+    public ResponseEntity<?> getFile(@PathVariable String filename) {
 
         Resource file = this.fileService.findOne(filename);
 
@@ -113,16 +115,6 @@ public class ApplicationController {
         this.fileService.deleteOne(filename);
 
         return ResponseEntity.noContent().build();
-    }
-
-    @Configuration
-    static class AllResources extends WebMvcConfigurerAdapter {
-
-        @Override
-        public void configurePathMatch(PathMatchConfigurer matcher) {
-            matcher.setUseSuffixPatternMatch(false);
-        }
-
     }
 
 }

@@ -1,4 +1,4 @@
-package com.greglturnquist.springagram.fileservice.s3.service;
+package com.greglturnquist.springagram.fileservice.s3.dummy.data.load;
 
 import java.io.IOException;
 
@@ -11,12 +11,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SecurityDetailsLoader {
+public class SecurityDetailsDummyLoader {
 
     private final UserRepository userRepository;
 
     @Autowired
-    public SecurityDetailsLoader(UserRepository userRepository) {
+    public SecurityDetailsDummyLoader(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

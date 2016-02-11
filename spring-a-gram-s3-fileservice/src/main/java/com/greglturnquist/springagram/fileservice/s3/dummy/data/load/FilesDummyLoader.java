@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.greglturnquist.springagram.fileservice.s3.service;
+package com.greglturnquist.springagram.fileservice.s3.dummy.data.load;
 
 import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 
+import com.greglturnquist.springagram.fileservice.s3.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Profile;
@@ -30,13 +31,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Profile("!production")
-public class DatabaseLoader {
+public class FilesDummyLoader {
 
     private final FileService fileService;
     private final ApplicationContext ctx;
 
     @Autowired
-    public DatabaseLoader(FileService fileService, ApplicationContext ctx) {
+    public FilesDummyLoader(FileService fileService, ApplicationContext ctx) {
         this.fileService = fileService;
         this.ctx = ctx;
     }
@@ -46,8 +47,8 @@ public class DatabaseLoader {
 
         this.fileService.deleteAll();
 
-//		loadImage("cat.jpg");
-//		loadImage("caterpillar.jpg");
+        //loadImage("cat.jpg");
+        //loadImage("caterpillar.jpg");
     }
 
     private void loadImage(String filename) throws IOException {

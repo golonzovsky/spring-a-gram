@@ -58,7 +58,6 @@ public class BackendTrafficListener {
 
     @Bean
     MessageListener messageListener() {
-
         return (message, pattern) ->
                 handle(new String(message.getBody(), Charset.defaultCharset()),
                         new String(message.getChannel(), Charset.defaultCharset()));
